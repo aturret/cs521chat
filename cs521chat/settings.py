@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chat',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 ROOT_URLCONF = 'cs521chat.urls'
 
@@ -68,7 +79,7 @@ TEMPLATES = [
         },
     },
 ]
-
+ASGI_APPLICATION = 'cs521chat.routing.application'
 WSGI_APPLICATION = 'cs521chat.wsgi.application'
 
 
